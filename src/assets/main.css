@@ -20,8 +20,6 @@ table{
     text-align: justify;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins&display=swap');
-
 :root {
     --action: #E6B325;
     --primary: #30475E;
