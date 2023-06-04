@@ -1,0 +1,58 @@
+<template>
+
+    <section class="position-relative shadow">
+        <div class="w-100 ratio ratio-3x4 overflow-hidden rounded">
+            <img :src="data.thumbnail" :alt="data.location" class="skeleton img-zoom img-brightness rounded img-fluid object-fit-cover">
+        </div>
+        <div class="w-100 position-absolute bottom-0 p-3 d-flex flex-column gap-2">
+            <small class="fs-smaller text-light text-uppercase">spectrum real estate<i class="bi bi-dot"></i><span class="badge text-bg-warning">{{data.type}}</span></small>
+            <h4 class="fs-4 text-light pop text-fade d-flex align-items-center gap-2">
+                <span class="material-symbols-outlined">location_on</span>
+                <span class="m-0 text-fade text-underline">{{data.location}}</span>
+            </h4>
+            <div class="container">
+                <div class="row bg-glass rounded text-light py-2">
+                    <div class="col-3">
+                        <div class="d-flex flex-column gap-1">
+                            <span class="fs-xsmall">AREA</span>
+                            <span class="text-warning fs-small">{{data.area}} m2</span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="d-flex flex-column gap-1">
+                            <span class="fs-xsmall">BATHROOM</span>
+                            <span class="text-warning fs-small">{{data.bathrooms}}</span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="d-flex flex-column gap-1">
+                            <span class="fs-xsmall">BEDS</span>
+                            <span class="text-warning fs-small">{{data.bedrooms}}</span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="d-flex flex-column gap-1">
+                            <span class="fs-xsmall">PARKING</span>
+                            <span class="text-warning fs-small">{{data.parking}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-sm btn-light fw-bold ls-2 text-uppercase"><span class="pop">For {{data.status}} - {{data.price}} $</span></button>
+    
+        </div>
+    
+    </section>
+
+</template>
+<script>
+import utilities from '../utilities.js'
+export default {
+    data(){
+        return{
+            utilities
+        }
+    },
+    props:['data']
+}
+</script>
