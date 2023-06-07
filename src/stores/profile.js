@@ -103,7 +103,7 @@ export const useProfile = defineStore('profile',{
     actions:{
 
         getApi(){
-            return 'https://script.google.com/macros/s/AKfycbxXw6sp4rnlK8iMbXsnUovtKAHe9dy_7GzLuFW6N2Ep7XClLlKBkrzAApZIHvIrWfg/exec'
+            return 'https://script.google.com/macros/s/AKfycbwFPq73v_0AJcClYI1XRcC_zINw3h9OtWAYIW0TWtICd9eueZB-vdTftv2LpctnLxkIFg/exec'
         },
         login(){
             return `?username=${encodeURIComponent(this.username)}&password=${encodeURIComponent(this.password)}`

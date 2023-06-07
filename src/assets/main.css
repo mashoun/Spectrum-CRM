@@ -20,6 +20,14 @@ table{
     text-align: justify;
 }
 
+.bg-image{
+    width: 100%;
+    height: fit-content;
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 :root {
     --action: #E6B325;
     --primary: #30475E;

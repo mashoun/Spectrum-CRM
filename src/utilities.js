@@ -109,7 +109,7 @@ async function hostImages(api, images) {
 
 function getYouTubeId(url) {
     const regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/\?v=)|youtu\.be\/)([^\s&]+)/;
-    const match = url.match(regex);    
+    const match = url.match(regex);
     return match ? match[1] : null;
 }
 
@@ -169,7 +169,7 @@ function noQuotes(str) {
 }
 
 function titlePath(title) {
-    return removeSpecialCharsExceptKeys(title.trim(), [' ', '-']).replaceAll(' ', '-').replace(/-+/g, '-').replaceAll('٪','').replaceAll('؛','').replaceAll('،','').replaceAll('؟','').toLowerCase()
+    return removeSpecialCharsExceptKeys(title.trim(), [' ', '-']).replaceAll(' ', '-').replace(/-+/g, '-').replaceAll('٪', '').replaceAll('؛', '').replaceAll('،', '').replaceAll('؟', '').toLowerCase()
 }
 
 function removeSpecialCharsExceptKeys(str, keys) {
@@ -206,15 +206,27 @@ function deepEqual(obj1, obj2) {
 }
 
 function convertGoogleDriveLink(link) {
-    
-    try{
+
+    try {
         const fileId = link.split("/")[5].split("?")[0];
         return `https://drive.google.com/uc?id=${fileId}`;
-    }catch(err){
-       console.log(err);
-       return link
+    } catch (err) {
+        console.log(err);
+        return link
     }
 }
+function extractGoogleDriveId(url) {
+    const startIndex = url.indexOf("?id=") + 4; // Add 4 to skip "?id="
+    const endIndex = url.indexOf("&export=view");
+    if (startIndex >= 4 && endIndex !== -1) {
+      return url.substring(startIndex, endIndex);
+    } else {
+      console.log("Invalid Google Drive link");
+      return null;
+    }
+  }
+  
+  
 
 function checkNetwork() {
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -315,53 +327,83 @@ function getFileSha(data) {
                 'Authorization': `Bearer ${authToken}`
             }
         })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error(`Failed to get file contents (${response.status} ${response.statusText})`);
-            }
-        })
-        .then(data => {
-            console.log(data.sha);
-            // handle SHA
-            resolve(data.sha)
-        })
-        .catch(error => {
-            console.error(error);
-            // handle error
-            reject(data.sha)
-        });
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(`Failed to get file contents (${response.status} ${response.statusText})`);
+                }
+            })
+            .then(data => {
+                console.log(data.sha);
+                // handle SHA
+                resolve(data.sha)
+            })
+            .catch(error => {
+                console.error(error);
+                // handle error
+                reject(data.sha)
+            });
     })
 
 }
 
-function getFolderId(domain,baas){
-    if(domain == 'jurdiconsult.media'){
+function getFolderId(domain, baas) {
+    if (domain == 'jurdiconsult.media') {
         var thumbnailsId = '1Z73hzjMWM8U3tsuiULJP6UA1eQY_cHJV'
         var blogsId = '1e2g3ajgOnFv4-sljLYqRTq9s-7GLPcgH'
         var servicesId = '1nm0-UKTTyKwUK_AO75BjbSKPcItW4PYy'
-        if(baas == 'thumbnail') return thumbnailsId
-        if(baas) return servicesId
+        if (baas == 'thumbnail') return thumbnailsId
+        if (baas) return servicesId
         return blogsId
-        
 
-    }else{
+
+    } else {
         // jurdilaw
-        
+
         var thumbnailsId = '1KRfNdun7uvFdpowTknj__DC8BVnKwD-X'
         var blogsId = '1SOSRARfsdRbFx-we-gdt49FgKK2o7jEt'
         var servicesId = '1JHM95YOVpHQYnqBgESWa570_2Y7-j5vp'
-        if(baas == 'thumbnail') return thumbnailsId
-        if(baas) return servicesId
+        if (baas == 'thumbnail') return thumbnailsId
+        if (baas) return servicesId
         return blogsId
     }
 }
 
-function fetchTemplate(url){
-    return new Promise(async (resolve,reject) => {
+function url64(url) {
+    var img = new Image();
+    img.setAttribute('crossOrigin', 'anonymous');
+
+    return new Promise(function (resolve, reject) {
+        img.onload = function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = this.width;
+            canvas.height = this.height;
+
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(this, 0, 0);
+
+            var dataURL = canvas.toDataURL('image/png');
+            console.log(dataURL);
+
+            // Remove the "data:image/png;base64," prefix from the data URL
+            // var base64 = dataURL.replace(/^data:image\/(png|jpeg);base64,/, '');
+
+            resolve(dataURL);
+        };
+
+        img.onerror = function () {
+            reject(new Error('Failed to load image: ' + url));
+        };
+
+        img.src = url;
+    });
+}
+
+function fetchTemplate(url) {
+    return new Promise(async (resolve, reject) => {
         var res = await fetch(url)
-        if(res.ok) {
+        if (res.ok) {
             resolve(res.text())
         }
         reject('Template not found')
@@ -369,7 +411,9 @@ function fetchTemplate(url){
 
 }
 export default {
+    url64,
     fetchTemplate,
+    extractGoogleDriveId,
     optimizeImageQuality,
     getFolderId,
     getFileSha,
