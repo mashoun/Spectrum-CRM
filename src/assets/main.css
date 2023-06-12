@@ -19,7 +19,13 @@ table{
 .text-justify{
     text-align: justify;
 }
-
+.ls-2{
+    letter-spacing: 2px !important;
+}
+.form-control{
+    color: var(--bs-dark) !important;
+    /* font-weight: 700; */
+}
 .bg-image{
     width: 100%;
     height: fit-content;

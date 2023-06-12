@@ -6,11 +6,17 @@
             <img :id="`image-${data.index}`" :src="data.thumbnail" :alt="data.location" class="skeleton img-zoom img-brightness rounded img-fluid object-fit-cover">
         </div>
         <div class="w-100 position-absolute bottom-0 p-3 d-flex flex-column gap-2">
+
             <small class="fs-smaller text-light text-uppercase">spectrum real estate<i class="bi bi-dot"></i><span class="badge text-bg-warning">{{data.type}}</span></small>
             <h4 class="fs-4 text-light pop text-fade d-flex align-items-center gap-2">
                 <span class="material-symbols-outlined">location_on</span>
                 <span class="m-0 text-fade text-underline">{{data.location}}</span>
             </h4>
+            <!-- <h6 class="fs-small text-light pop text-fade d-flex align-items-center gap-2">
+                <span class="material-symbols-outlined">schedule</span>
+                <time class="text-light text-end fs-6 font-monospace m-0">{{utilities.timo(data.date)}}</time>
+            </h6> -->
+            <!-- <time class="text-light text-end fs-xsmall font-monospace">{{utilities.timo(data.date)}}</time> -->
             <div class="container">
                 <div class="row bg-glass rounded text-light py-2">
                     <div class="col-3">
@@ -39,13 +45,20 @@
                     </div>
                 </div>
             </div>
-            <button title="Download as image" @click="downloadAsImage(data.id,`${data.location}-${data.area}-${data.price}`)" class="btn btn-sm btn-light fw-bold ls-2 text-uppercase">
+
+            <!-- <button title="Download as image" @click="downloadAsImage(data.id,`${data.location}-${data.area}-${data.price}`)" class="btn btn-sm btn-light fw-bold ls-2 text-uppercase">
+                <span v-if="spinner" class="spinner-grow spinner-grow-sm"></span>
+                <span v-else class="pop">For {{data.status}} - {{data.price}} $</span>
+            </button> -->
+            <button class="btn btn-sm btn-light fw-bold ls-2 text-uppercase">
                 <span v-if="spinner" class="spinner-grow spinner-grow-sm"></span>
                 <span v-else class="pop">For {{data.status}} - {{data.price}} $</span>
             </button>
+
             <!-- <button class="btn btn-sm btn-outline-light" @click="downloadAsImage(data.id,`${data.location}-${data.area}-${data.price}`)">Download Poster</button> -->
         </div>
-    
+        <!-- <small class="position-absolute top-0 p-3 text-light font-monospace fs-xsmall ls-2">{{utilities.timo(data.date)}} <br>#ID:{{dateId(data.date)}}</small> -->
+        <!-- <time class="text-light fs-small position-absolute top-0 fs-xsmall p-3 font-monospace">{{utilities.timo(data.date)}}</time> -->
     </section>
 
 </template>
@@ -65,6 +78,10 @@ export default {
     },
     props:['data'],
     methods:{
+        dateId(time){
+            console.log(time);
+            return time.replace(/[^0-9]/g, '')
+        },
         async downloadAsImage(elementId,filename){
             this.spinner = true
             var canvas = await html2canvas(document.getElementById(elementId),{

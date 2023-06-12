@@ -30,7 +30,7 @@
       </div>
       <div class="col-12">
           <div class="form-floating">
-              <input type="text" v-model="store.contact.number"  class="form-control" id="floatingInput4" placeholder="name@example.com">
+              <input type="number" v-model="store.contact.number"  class="form-control" id="floatingInput4" placeholder="name@example.com">
               <label for="floatingInput4">Phone number</label>
           </div>
       </div>
@@ -58,6 +58,7 @@
               <label for="floatingInput8">Instagram URL</label>
           </div>
       </div>
+      {{store.isRequired('number')}}
       <div class="col-12 col-md-6 col-lg-2">
         <button class="w-100 btn btn-primary btn-sm" :disabled="spinner" @click="saveProfile"> <span v-if="spinner" class="spinner-grow spinner-grow-sm"></span> <span v-else>Save changes</span></button>
       </div>
@@ -82,6 +83,10 @@ export default {
     }
   },
   methods:{
+    isRequired(name){
+        return this.store.isRequired(this.store.contact,name)
+
+    },
     saveProfile(){
         if(confirm('Are you sure?') === true){
             this.spinner = true

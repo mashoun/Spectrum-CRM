@@ -42,7 +42,14 @@ export const useProfile = defineStore('profile',{
             "amenities": "",
             "bedrooms": "",
             "bathrooms": "",
-            "parking": ""
+            "parking": "",
+            "landZone":"",
+            "landType":"",
+            "landSlope":"",
+            "warehouseType":"",
+            "warehouseHeight":"",
+            "description":"",
+            "isHotDeal":"false"
         },
         profile:{
             "contact": {
@@ -80,7 +87,14 @@ export const useProfile = defineStore('profile',{
                     "amenities": "",
                     "bedrooms": "",
                     "bathrooms": "",
-                    "parking": ""
+                    "parking": "",
+                    "landZone":"",
+                    "landType":"",
+                    "landSlope":"",
+                    "warehouseType":"",
+                    "warehouseHeight":"",
+                    "description":"",
+                    "isHotDeal":"false"
                 }
             ],
             "feedbacks": [
@@ -103,7 +117,7 @@ export const useProfile = defineStore('profile',{
     actions:{
 
         getApi(){
-            return 'https://script.google.com/macros/s/AKfycbwFPq73v_0AJcClYI1XRcC_zINw3h9OtWAYIW0TWtICd9eueZB-vdTftv2LpctnLxkIFg/exec'
+            return 'https://script.google.com/macros/s/AKfycbx78EWUY5ZMQX-Go3YkrLi6_ysjD2F1PkB1t-5nCsG-TWrwEJLiRON-AeS1LL62_0u_rw/exec'
         },
         login(){
             return `?username=${encodeURIComponent(this.username)}&password=${encodeURIComponent(this.password)}`
@@ -111,10 +125,16 @@ export const useProfile = defineStore('profile',{
         getProfile(){
             fetch(`${this.getApi()}?getContact=1`).then(res => res.json()).then(res => {
                 this.profile = res
+                console.log(res);
             }).catch(err => {
                 console.log(err);
             })
-        }
+        },
+        
+        isRequired(obj,name){
+            if(obj[name] != '') return true
+            return false
+        },
 
     }
 })

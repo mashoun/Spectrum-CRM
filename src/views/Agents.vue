@@ -21,10 +21,10 @@
                 <th scope="col">Bio</th>
               </tr>
             </thead>
-            <tbody v-if="store.profile.agents.length > 2" >
+            <tbody v-if="store.profile.agents.length > 0" >
               <tr v-for="a in store.profile.agents" :key="a">
                 <th scope="row"><span @click="removeAgent(a.name)" class="material-symbols-outlined text-danger point" :title="`Delete ${a.name}`">delete</span></th>
-                <td><div class="ratio ratio-1x1"><img :src="a.thumbnail" :alt="a.name" class="img-fluid object-fit-cover rounded"></div></td>
+                <td><div class="ratio ratio-1x1" style="width:100px;"><img :src="a.thumbnail" :alt="a.name" class="img-fluid object-fit-cover rounded"></div></td>
                 <td>{{a.name}}</td>
                 <td>{{a.bio}}</td>
               </tr>
@@ -60,7 +60,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" @click="saveChanges" :disabled="spinner" class="btn btn-primary">
+                <button type="button" @click="saveChanges" :disabled="spinner || !isRequired('thumbnail')  || !isRequired('name')  || !isRequired('bio') " class="btn btn-primary">
                     <span v-if="spinner" class="spinner-grow spinner-grow-sm"></span>
                     <span v-else >Save changes</span>
                 </button>
@@ -84,6 +84,9 @@ export default {
     }
   },
   methods:{
+    isRequired(name){
+        return this.store.isRequired(this.store.agent,name)
+    },
     saveChanges(){
         if(confirm('Are you sure?') === true){
             this.spinner = true
@@ -102,6 +105,13 @@ export default {
                 this.spinner = false
                 if(res == '201') alert('Meshe l7al')
                 this.store.profile.agents.push(this.store.agent)
+                this.store.agent = {
+                    "index": "",
+                    "name": "",
+                    "id": "",
+                    "bio": "",
+                    "thumbnail": ""
+                }
             }).catch(err => {
                 console.log(err);
                 this.spinner = false

@@ -15,7 +15,7 @@
               </button>
             </div>
             <small class="fs-xsmall pop text-secondary text-center">Developed by 
-              <a href="https://libancode.com">Libancode</a> - version 1.1.0
+              <a href="https://libancode.com">Libancode</a> - version 1.1.2
             </small>
           </section>
         </div>
@@ -30,14 +30,14 @@
       <router-link to="/">+Profile</router-link>
       <router-link to="/Agents">+Agents</router-link>
       <router-link to="/Properties">+Properties</router-link>
-      <router-link to="/Feedbacks">+Feedbacks</router-link>
+      <router-link to="/Feedbacks">+Testimonials</router-link>
     </nav>
     <i class="d-block d-lg-none bi bi-three-dots-vertical fs-3 text-secondary" data-bs-toggle="dropdown" ></i>
     <ul class="dropdown-menu">
       <li><router-link to="/" class="dropdown-item">+Profile</router-link></li>
       <li><router-link to="/Agents" class="dropdown-item">+Agents</router-link></li>
       <li><router-link to="/Properties" class="dropdown-item">+Properties</router-link></li>
-      <li><router-link to="/Feedbacks" class="dropdown-item">+Feedbacks</router-link></li>
+      <li><router-link to="/Feedbacks" class="dropdown-item">+Testimonials</router-link></li>
     </ul>
   </header>
   <main v-if="isLogedIn" style="margin-top:100px;" class="pb-5">

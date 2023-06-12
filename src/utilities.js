@@ -226,7 +226,13 @@ function extractGoogleDriveId(url) {
     }
   }
   
-  
+
+function dateId(dateString) {
+// Remove non-numeric characters from the date string
+var formattedDate = dateString.replace(/[^0-9]/g, '');
+
+return formattedDate;
+}
 
 function checkNetwork() {
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -438,5 +444,6 @@ export default {
     isArabic,
     deepEqual,
     getYouTubeVideoDetails,
-    titlePath
+    titlePath,
+    dateId
 }

@@ -7,7 +7,7 @@
         
         <button data-bs-toggle="modal" data-bs-target="#exampleModal" :disabled="spinner" class="d-none d-lg-block btn btn-sm btn-primary">
             <span v-if="spinner" class="spinner-grow spinner-grow-sm"></span>
-            <span v-else >Add new feedback</span>
+            <span v-else >New testimonial</span>
         </button>
       </div>
       <div class="col-12">
@@ -22,7 +22,7 @@
                 <th scope="col">Feedback</th>
               </tr>
             </thead>
-            <tbody v-if="store.profile.agents.length > 2" >
+            <tbody v-if="store.profile.feedbacks.length > 0" >
               <tr v-for="f in store.profile.feedbacks" :key="f">
                 <th scope="row"><span @click="removeFeedback(f)" class="material-symbols-outlined text-danger point" :title="`Delete ${f.name}`">delete</span></th>
                 <td><div class="ratio ratio-1x1"><img :src="f.thumbnail" :alt="f.name" class="img-fluid object-fit-cover rounded"></div></td>
@@ -66,7 +66,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" @click="saveChanges" :disabled="spinner" class="btn btn-primary">
+                <button type="button" @click="saveChanges" :disabled="spinner || !isRequired('thumbnail') || !isRequired('name') || !isRequired('job') || !isRequired('feedback')" class="btn btn-primary">
                     <span v-if="spinner" class="spinner-grow spinner-grow-sm"></span>
                     <span v-else >Save changes</span>
                 </button>
@@ -90,6 +90,9 @@ export default {
     }
   },
   methods:{
+    isRequired(name){
+        return this.store.isRequired(this.store.feedback,name)
+    },
     saveChanges(){
         if(confirm('Are you sure?') === true){
             this.spinner = true
@@ -109,6 +112,15 @@ export default {
                 this.spinner = false
                 if(res == '201') alert('Meshe l7al')
                 this.store.profile.feedbacks.push(this.store.feedback)
+                this.store.feedback = {
+                    "index": "",
+                    "date": "",
+                    "id": "",
+                    "name": "",
+                    "thumbnail": "",
+                    "job": "",
+                    "feedback": ""
+                }
             }).catch(err => {
                 console.log(err);
                 this.spinner = false
