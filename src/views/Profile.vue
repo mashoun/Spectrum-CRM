@@ -58,7 +58,6 @@
               <label for="floatingInput8">Instagram URL</label>
           </div>
       </div>
-      {{store.isRequired('number')}}
       <div class="col-12 col-md-6 col-lg-2">
         <button class="w-100 btn btn-primary btn-sm" :disabled="spinner" @click="saveProfile"> <span v-if="spinner" class="spinner-grow spinner-grow-sm"></span> <span v-else>Save changes</span></button>
       </div>
