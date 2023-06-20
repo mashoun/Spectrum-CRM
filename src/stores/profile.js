@@ -27,6 +27,11 @@ export const useProfile = defineStore('profile',{
             "job": "",
             "feedback": ""
         },
+        story:
+        {
+            "date": "",
+            "thumbnail": ""
+        },
         property:
         {
             "index": "",
@@ -107,6 +112,14 @@ export const useProfile = defineStore('profile',{
                     "job": "",
                     "feedback": ""
                 }
+            ],
+            "stories":[
+                {
+                    "index": "",
+                    "date": "",
+                    "id": "",
+                    "thumbnail": ""
+                },
             ]
         },
         username:'',
@@ -117,7 +130,7 @@ export const useProfile = defineStore('profile',{
     actions:{
 
         getApi(){
-            return 'https://script.google.com/macros/s/AKfycbx78EWUY5ZMQX-Go3YkrLi6_ysjD2F1PkB1t-5nCsG-TWrwEJLiRON-AeS1LL62_0u_rw/exec'
+            return 'https://script.google.com/macros/s/AKfycbwPyfOfFtqevq2h28lldDv4_114NO9FGpPu1TOLTq43R5hJp5KvBS6STC3tQbaVnaF8LQ/exec'
         },
         login(){
             return `?username=${encodeURIComponent(this.username)}&password=${encodeURIComponent(this.password)}`

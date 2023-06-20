@@ -28,6 +28,7 @@
     </section>
     <nav class="d-none d-lg-flex gap-3 align-items-center">
       <router-link to="/">+Profile</router-link>
+      <router-link to="/Stories">+Stories</router-link>
       <router-link to="/Agents">+Agents</router-link>
       <router-link to="/Properties">+Properties</router-link>
       <router-link to="/Feedbacks">+Testimonials</router-link>
@@ -35,6 +36,7 @@
     <i class="d-block d-lg-none bi bi-three-dots-vertical fs-3 text-secondary" data-bs-toggle="dropdown" ></i>
     <ul class="dropdown-menu">
       <li><router-link to="/" class="dropdown-item">+Profile</router-link></li>
+      <li><router-link to="/Stories" class="dropdown-item">+Stories</router-link></li>
       <li><router-link to="/Agents" class="dropdown-item">+Agents</router-link></li>
       <li><router-link to="/Properties" class="dropdown-item">+Properties</router-link></li>
       <li><router-link to="/Feedbacks" class="dropdown-item">+Testimonials</router-link></li>

@@ -14,6 +14,11 @@ const router = createRouter({
       component: () => import('../views/Agents.vue')
     },
     {
+      path: '/Stories',
+      name: 'stories',
+      component: () => import('../views/Stories.vue')
+    },
+    {
       path: '/Feedbacks',
       name: 'Feedbacks',
       component: () => import('../views/Feedbacks.vue')

@@ -100,14 +100,15 @@
                     <input type="text" v-model="store.property.location" class="form-control" placeholder="name@example.com">
                     <label for="floatingInput2">Location</label>
                 </div>
-                <div class="form-floating">
-                    <input type="text" v-model="store.property.description" class="form-control" placeholder="name@example.com">
-                    <label for="floatingInput2">Description</label>
-                </div>
-                <div class="form-floating">
-                    <input type="number" v-model="store.property.price" class="form-control ls-2" placeholder="name@example.com">
-                    <label for="floatingInput2">Price $</label>
-                </div>
+                <!-- <div class="form-floating"> -->
+                    <textarea rows="4" type="text" v-model="store.property.description" class="form-control" placeholder="Description"></textarea>
+                    <!-- <label for="floatingInput2">Description</label> -->
+                <!-- </div> -->
+                <!-- <div class="form-floating"> -->
+                    <h6 class="ps-2">Price : {{byComma}} $</h6>
+                    <input type="number" v-model="store.property.price" class="form-control ls-2" placeholder="Enter Price">
+                    <!-- <label for="floatingInput2">Price {{byComma}}$</label> -->
+                <!-- </div> -->
                 <div class="form-floating">
                     <input type="text" v-model="store.property.amenities" class="form-control" placeholder="name@example.com">
                     <label for="floatingInput2">Amenities ( comma between )</label>
@@ -161,6 +162,9 @@ export default {
         }
     },
     computed:{
+        byComma(){
+            return this.store.property.price.toLocaleString()
+        },
         isLands(){
             if(this.store.property.type == 'Lands'){
                 return true
@@ -184,6 +188,16 @@ export default {
     },
     components:{property},
     methods:{
+        formatNumber(input) {
+        // Remove any existing commas and convert the value to a number
+        let value = parseFloat(input.value.replace(/,/g, ''));
+
+        // Use toLocaleString() method to format the number with commas
+        value = value.toLocaleString();
+
+        // Set the formatted value back to the input
+        input.value = value;
+        },
     filterById(){
         
     },
